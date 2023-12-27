@@ -4,25 +4,47 @@ import {ref} from "vue"
 const showModal = ref(false)
 const newNote = ref("")
 const notes = ref([])
+const notedesc=ref("")
 const showbutton= ref(false)
+const name=ref('')
+const errorMessage =ref("")
 
+function randomKey() {
+   return (new Date()).getTime() + Math.floor(Math.random() * 10000).toString()
+}
 function getRandomColor() {
   const color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
   return color;
 }
+
+function getRandomColorForName() {
+  const color = "hsl(" + Math.random() * 360 + ", 100%, 75%)";
+  return color;
+}
+
 const addbutt=()=>{
  showbutton.value=!showbutton.value;
 }
 
 const addNote = () => {
+  if(newNote.value.length>24 OR name.value.length>5){
+    errorMessage.value="this is error";
+    return errorMessage.value
+  }
   notes.value.push({
     id: Math.floor(Math.random() * 100000),
     text: newNote.value,
+    textdesc:notedesc.value,
     color: getRandomColor(),
-    date: new Date()
+    colername:getRandomColorForName(),
+    name: name,
+    date: new Date(),
+    newid:randomKey()
   })
   showModal.value = false;
   newNote.value = ""
+  notedesc.value=""
+  errorMessage.value=""
 }
 </script>
 
@@ -31,9 +53,12 @@ const addNote = () => {
     <div v-if="showModal" class="overlay">
       <div class="modal">
         <p @click="showModal = false">x</p>
-        <textarea v-model="newNote"/>
+        <input class="username" v-model="name"/>
+        <textarea v-model.trim="newNote"/>
+        <textarea v-model="notedesc"/>
+       <P v-if="errorMessage">{{ errorMessage }}</P> 
         <button @click="addNote">Add Note</button>
-        <div v-if="showbutton"><button>add new child not</button>
+        <div v-if="showbutton"><button>add new child </button>
           
         </div>
         <button @click="addbutt">show</button>
@@ -45,10 +70,14 @@ const addNote = () => {
         <button @click="showModal = true">+</button>
       </header>
       <div class="cards-container">
-        <div v-for="note in notes" class="card" :style="{backgroundColor: note.color}">
-          <p class="main-text">{{ note.text }}</p>
+        <div v-for="note in notes" key="note.id" class="card" :style="{backgroundColor: note.color}">
+          <p class="main-text" :style="{color: note.colername}">{{ note.name }}</p>
+          <p class="main-text" >{{ note.text }}</p>
+          <p class="main-text" >{{ note.newid }}</p>
+          <p class="main-text">{{ note.textdesc }}</p>
           <p class="date">{{ note.date.toLocaleDateString("en-US") }}</p>
-        </div>
+      
+      </div>
       </div>
     </div>
   </main>
@@ -165,6 +194,14 @@ const addNote = () => {
     width: 100%;
     height: 200px;
     padding: 5px;
+    margin-bottom:5px;
+    font-size: 20px;
+  }
+  input {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    margin-bottom:5px;
     font-size: 20px;
   }
 </style>
