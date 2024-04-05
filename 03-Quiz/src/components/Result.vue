@@ -13,7 +13,7 @@
         </h1>
         <RouterLink to="/">Go Back</RouterLink>
     </div>
-</template>
+</template>z
 
 <style scoped>
     .results {

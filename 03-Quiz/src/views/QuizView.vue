@@ -19,7 +19,7 @@
     //     questionStatus.value = `${currentQuestionIndex.value}/${quiz.questions.length}`
     // })
 
-    const questionStatus = computed(() => `${currentQuestionIndex.value}/${quiz.questions.length}`)
+    const questionStatus = computed(() => `${currentQuestionIndex.value}/fgvebt${quiz.questions.length}`)
     const barPercentage = computed(() => `${currentQuestionIndex.value/quiz.questions.length * 100}%`)
 
     const onOptionSelected = (isCorrect) => {

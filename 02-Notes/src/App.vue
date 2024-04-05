@@ -27,7 +27,7 @@ const addbutt=()=>{
 }
 
 const addNote = () => {
-  if(newNote.value.length>24 OR name.value.length>5){
+  if(newNote.value.length>24 || name.value.length>5){
     errorMessage.value="this is error";
     return errorMessage.value
   }
@@ -56,7 +56,7 @@ const addNote = () => {
         <input class="username" v-model="name"/>
         <textarea v-model.trim="newNote"/>
         <textarea v-model="notedesc"/>
-       <P v-if="errorMessage">{{ errorMessage }}</P> 
+       <p v-if="errorMessage">{{ errorMessage }}</p> 
         <button @click="addNote">Add Note</button>
         <div v-if="showbutton"><button>add new child </button>
           

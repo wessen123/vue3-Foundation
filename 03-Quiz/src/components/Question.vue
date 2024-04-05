@@ -1,5 +1,6 @@
 <script setup>
     import {defineProps, defineEmits} from "vue"
+    import newComponent from "../components/newComponent.vue"
 
     const emit = defineEmits(["selectOption"])
 
@@ -11,6 +12,10 @@
 </script>
 
 <template>
+    
+    <newComponent>
+
+    </newComponent>
     <div class="question-container">
         <h1 class="question">
             {{question.text}}
